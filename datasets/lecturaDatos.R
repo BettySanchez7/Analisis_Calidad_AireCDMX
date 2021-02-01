@@ -18,7 +18,10 @@ LecturaCSV2 <- function(url){
   nombre <- lapply(dir(), read.csv, sep = ";")
 }
 
-##Unión de datasets  ##UIZ, PED no están en todos los datasets (P10 Y PM25)
+##Unión de datasets  
+##Se unen los datasets y se renombra columnas para que coincidad
+##Se seleccionan las columnas necesarias para trabajar 
+##UIZ, PED no están en todos los datasets (P10 Y PM25)
 uniondf <- function(data1, data2=NULL){
   DATA1 <- lapply(c(data1,data2), select, c(contains("FECHA"), TLA, MER, UIZ, PED))
   n = length(DATA1)
@@ -35,7 +38,7 @@ orden <- function(datos){
   datos[order(as.Date(datos$FECHA, format="%d/%m/%Y")),]
 }
 
-##Agrupando por años###
+##Agrupando por años, se obtiene el promedio de las columnas por estación, se agrupa por mes###
 groupanios <- function(dataframe){
   data_anio <- mutate(dataframe, FECHA= as.Date(FECHA, "%d/%m/%Y"))
   data_anio <- mutate(data_anio, anio= format(FECHA,"%Y"))
