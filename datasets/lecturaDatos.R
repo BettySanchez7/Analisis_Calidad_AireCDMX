@@ -96,7 +96,6 @@ O3 <- orden(O3)
 ##########################Sustituir -99 por NA#############################3
 NO2[NO2 =="-99"] <- NA
 O3[O3 =="-99"] <- NA
-CO[CO =="-99"] <- "NA"
 SO2[SO2 =="-99"] <- NA
 #P10[P10 =="-99"] <- NA
 #PM25[PM25 =="-99"] <-NA
@@ -107,6 +106,7 @@ CO$UIZ <- gsub(",",".",CO$UIZ)
 CO$PED <- gsub(",",".",CO$PED)
 CO$MER <- gsub(",",".",CO$MER)
 CO <- mutate(CO, TLA= as.numeric(TLA), MER= as.numeric(MER), UIZ= as.numeric(UIZ), PED= as.numeric(PED))
+CO[CO =="-99"] <- NA
 
 ##Agrupando por años
 
