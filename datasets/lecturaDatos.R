@@ -2,43 +2,27 @@ library(dplyr)
 library(ggplot2)
 library(e1071)
 
-
 #Seleccionando carpeta de trabajo
 setwd("Documentos/BEDU_DataScience/Proyecto/Analisis_Calidad_AireCDMX")
 
-##ALGUNOS DATASETS NO SE CARGABAN SEPARADOS POR COMAS POR LO QUE HICE UNA FUNCIÓN PARA CARGAR LOS QUE 
-##SE SEPARARAN POR "," Y OTRA PARA LOS QUE SE SEPARABAN POR ";"
-
 ##########################FUNCIONES PARA LA LECTURA Y LIMPIEZA DE DATOS####################3
-<<<<<<< HEAD
-##Separada por comas
-LecturaCSV <- function(url){
-  setwd(url)
-  nombre <- lapply(dir(path=url,full.names=T), read.csv, sep = ",")
-}
-
-
-##Separada por punto y coma
-
-=======
 ##Indicar separador entre comillas dobles
 LecturaCSV <- function(url,sep){
   nombre <- lapply(dir(path = url,full.names = T), read.csv, sep = sep)
 }
->>>>>>> 89ed47a83befc83bb1ceb12e62ce3d703ed0d74c
 
 ##Unión de datasets  
 ##Se unen los datasets y se renombra columnas para que coincidad
 ##Se seleccionan las columnas necesarias para trabajar 
 ##UIZ, PED no están en todos los datasets (P10 Y PM25)
 uniondf <- function(data1,data2=NULL){
-  DATA1 <- lapply(c(data1,data2), select, c(contains("FECHA"), TLA, MER, UIZ, PED))
+  DATA1 <- lapply(c(data1,data2), select, c(contains("FECHA"), SAG, TLA, XAL, MER, PED, UIZ))
   n = length(DATA1)
   for (i in 1:n){
-    names(DATA1[[i]]) = c("FECHA", "TLA", "MER", "UIZ", "PED") 
+    names(DATA1[[i]]) = c("FECHA", "SAG", "TLA", "XAL", "MER", "PED", "UIZ") 
   }
   DATA <- do.call(rbind, DATA1)
-
+  
   return(DATA)
 }
 
@@ -55,7 +39,7 @@ groupanios <- function(dataframe){
     summarise(mean.TLA=mean(TLA, na.rm = TRUE), mean.MER=mean(MER, na.rm = TRUE),
               mean.UIZ=mean(UIZ, na.rm = TRUE),mean.PED=mean(PED, na.rm = TRUE), cont=n())
   return(result)
-  }
+}
 
 ################LECTURA DE DATOS########################33
 
@@ -82,15 +66,11 @@ CO <- orden(CO)
 SO2 <- orden(SO2)
 NO2 <- orden(NO2)
 O3 <- orden(O3)
-#P10 <- orden(P10)
-#PM25 <- orden(PM25)
 
 ##########################Sustituir -99 por NA#############################3
 NO2[NO2 =="-99"] <- NA
 O3[O3 =="-99"] <- NA
 SO2[SO2 =="-99"] <- NA
-#P10[P10 =="-99"] <- NA
-#PM25[PM25 =="-99"] <-NA
 
 ## En CO hay valores no numericos
 CO$TLA <- gsub(",",".",CO$TLA)
@@ -100,13 +80,15 @@ CO$MER <- gsub(",",".",CO$MER)
 CO <- mutate(CO, TLA= as.numeric(TLA), MER= as.numeric(MER), UIZ= as.numeric(UIZ), PED= as.numeric(PED))
 CO[CO =="-99"] <- NA
 
+#Leyendo número de datos faltantes
+sum(is.na(NO2))
+sum(is.na(NO2))
+
 ##Agrupando por años
 
 NO2 <- groupanios(NO2)
 O3 <- groupanios(O3)
 CO <- groupanios(CO)
 SO2 <- groupanios(SO2)
-#P10 <- groupanios(P10)
-#PM25 <- groupanios(PM25)
 
 ##############################################################################################3
