@@ -2,28 +2,23 @@ library(dplyr)
 library(ggplot2)
 library(e1071)
 
+setwd("Documentos/BEDU_DataScience/Proyecto/Analisis_Calidad_AireCDMX")
+
 ##ALGUNOS DATASETS NO SE CARGABAN SEPARADOS POR COMAS POR LO QUE HICE UNA FUNCIÓN PARA CARGAR LOS QUE 
 ##SE SEPARARAN POR "," Y OTRA PARA LOS QUE SE SEPARABAN POR ";"
 
 ##########################FUNCIONES PARA LA LECTURA Y LIMPIEZA DE DATOS####################3
 ##Separada por comas
 LecturaCSV <- function(url){
-  setwd(url)
-  nombre <- lapply(dir(), read.csv, sep = ",")
-}
-
-##Separada por punto y coma
-LecturaCSV2 <- function(url){
-  setwd(url)
-  nombre <- lapply(dir(), read.csv, sep = ";")
+  nombre <- lapply(dir(path = url,full.names = T), read.csv, sep = ",")
 }
 
 ##Unión de datasets  
 ##Se unen los datasets y se renombra columnas para que coincidad
 ##Se seleccionan las columnas necesarias para trabajar 
 ##UIZ, PED no están en todos los datasets (P10 Y PM25)
-uniondf <- function(data1, data2=NULL){
-  DATA1 <- lapply(c(data1,data2), select, c(contains("FECHA"), TLA, MER, UIZ, PED))
+uniondf <- function(lista){
+  DATA1 <- lapply(lista, select, c(contains("FECHA"), TLA, MER, UIZ, PED))
   n = length(DATA1)
   for (i in 1:n){
     names(DATA1[[i]]) = c("FECHA", "TLA", "MER", "UIZ", "PED") 
@@ -51,10 +46,9 @@ groupanios <- function(dataframe){
 ################LECTURA DE DATOS########################33
 
 ##NO2
-NO21 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/NO2/sinpunto")
-NO22 <- LecturaCSV2("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/NO2/punto")
+NO21 <- LecturaCSV("datasets/datasets_contaminantes/NO2/")
 
-NO2 <- uniondf(NO21, NO22)
+NO2 <- uniondf(NO21)
 
 ###CO
 CO1 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/CO/sinpunto")
