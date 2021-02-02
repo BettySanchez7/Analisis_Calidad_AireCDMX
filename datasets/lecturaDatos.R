@@ -9,14 +9,12 @@ library(e1071)
 ##Separada por comas
 LecturaCSV <- function(url){
   setwd(url)
-  nombre <- lapply(dir(), read.csv, sep = ",")
+  nombre <- lapply(dir(path=url,full.names=T), read.csv, sep = ",")
 }
 
+
 ##Separada por punto y coma
-LecturaCSV2 <- function(url){
-  setwd(url)
-  nombre <- lapply(dir(), read.csv, sep = ";")
-}
+
 
 ##Unión de datasets  
 ##Se unen los datasets y se renombra columnas para que coincidad
