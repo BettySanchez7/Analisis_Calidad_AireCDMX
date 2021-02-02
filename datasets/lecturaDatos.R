@@ -3,7 +3,7 @@ library(ggplot2)
 library(e1071)
 
 #Seleccionando carpeta de trabajo
-setwd("Documentos/BEDU_DataScience/Proyecto/Analisis_Calidad_AireCDMX")
+setwd("Documents/Repositorios/Analisis_Calidad_AireCDMX")
 
 ##########################FUNCIONES PARA LA LECTURA Y LIMPIEZA DE DATOS####################3
 ##Indicar separador entre comillas dobles
@@ -32,12 +32,13 @@ orden <- function(datos){
 }
 
 ##Agrupando por años, se obtiene el promedio de las columnas por estación, se agrupa por mes###
-groupanios <- function(dataframe){
-  data_anio <- mutate(dataframe, FECHA= as.Date(FECHA, "%d/%m/%Y"))
-  data_anio <- mutate(data_anio, anio= format(FECHA,"%Y"))
-  result <- data_anio %>%  group_by(anio) %>%
+groupmeses <- function(dataframe){
+  data_mes <- mutate(dataframe, FECHA= as.Date(FECHA, "%d/%m/%Y"))
+  data_mes <- mutate(data_mes, mes= format(FECHA,"%m/%Y"))
+  result <- data_mes %>%  group_by(mes) %>%
     summarise(mean.TLA=mean(TLA, na.rm = TRUE), mean.MER=mean(MER, na.rm = TRUE),
-              mean.UIZ=mean(UIZ, na.rm = TRUE),mean.PED=mean(PED, na.rm = TRUE), cont=n())
+              mean.UIZ=mean(UIZ, na.rm = TRUE),mean.PED=mean(PED, na.rm = TRUE),
+              mean.SAG=mean(SAG, na.rm = TRUE),mean.XAL=mean(XAL, na.rm = TRUE), cont=n())
   return(result)
 }
 
@@ -76,8 +77,13 @@ SO2[SO2 =="-99"] <- NA
 CO$TLA <- gsub(",",".",CO$TLA)
 CO$UIZ <- gsub(",",".",CO$UIZ)
 CO$PED <- gsub(",",".",CO$PED)
+CO$SAG <- gsub(",",".",CO$SAG)
+CO$XAL <- gsub(",",".",CO$XAL)
 CO$MER <- gsub(",",".",CO$MER)
-CO <- mutate(CO, TLA= as.numeric(TLA), MER= as.numeric(MER), UIZ= as.numeric(UIZ), PED= as.numeric(PED))
+CO <- mutate(CO, TLA= as.numeric(TLA), MER= as.numeric(MER), 
+                 UIZ= as.numeric(UIZ), PED= as.numeric(PED),
+                 SAG=as.numeric(SAG), XAL= as.numeric(XAL)
+            )
 CO[CO =="-99"] <- NA
 
 #Leyendo número de datos faltantes
@@ -86,9 +92,18 @@ sum(is.na(NO2))
 
 ##Agrupando por años
 
-NO2 <- groupanios(NO2)
-O3 <- groupanios(O3)
-CO <- groupanios(CO)
-SO2 <- groupanios(SO2)
+NO2 <- groupmeses(NO2)
+O3 <- groupmeses(O3)
+CO <- groupmeses(CO)
+SO2 <- groupmeses(SO2)
+
+##Creando csv
+
+write.csv(NO2, file="Documents/Repositorios/Analisis_Calidad_AireCDMX/datasets/NO2.csv", row.names = FALSE)
+write.csv(O3, file="Documents/Repositorios/Analisis_Calidad_AireCDMX/datasets/O3.csv", row.names = FALSE)
+write.csv(CO, file="Documents/Repositorios/Analisis_Calidad_AireCDMX/datasets/CO.csv", row.names = FALSE)
+write.csv(SO2, file="Documents/Repositorios/Analisis_Calidad_AireCDMX/datasets/SO2.csv", row.names = FALSE)
+
+
 
 ##############################################################################################3
