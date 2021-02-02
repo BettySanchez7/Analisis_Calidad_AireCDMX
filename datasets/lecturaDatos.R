@@ -2,22 +2,24 @@ library(dplyr)
 library(ggplot2)
 library(e1071)
 
-setwd("Documents/Repositorios/Analisis_Calidad_AireCDMX")
+
+#Seleccionando carpeta de trabajo
+setwd("Documentos/BEDU_DataScience/Proyecto/Analisis_Calidad_AireCDMX")
 
 ##ALGUNOS DATASETS NO SE CARGABAN SEPARADOS POR COMAS POR LO QUE HICE UNA FUNCIÓN PARA CARGAR LOS QUE 
 ##SE SEPARARAN POR "," Y OTRA PARA LOS QUE SE SEPARABAN POR ";"
 
 ##########################FUNCIONES PARA LA LECTURA Y LIMPIEZA DE DATOS####################3
-##Separada por comas
-LecturaCSV <- function(url){
-  nombre <- lapply(dir(path = url,full.names = T), read.csv, sep = ",")
+##Indicar separador entre comillas dobles
+LecturaCSV <- function(url,sep){
+  nombre <- lapply(dir(path = url,full.names = T), read.csv, sep = sep)
 }
 
 ##Unión de datasets  
 ##Se unen los datasets y se renombra columnas para que coincidad
 ##Se seleccionan las columnas necesarias para trabajar 
 ##UIZ, PED no están en todos los datasets (P10 Y PM25)
-uniondf <- function(lista){
+uniondf <- function(data1,data2=NULL){
   DATA1 <- lapply(lista, select, c(contains("FECHA"), TLA, MER, UIZ, PED))
   n = length(DATA1)
   for (i in 1:n){
@@ -46,33 +48,36 @@ groupanios <- function(dataframe){
 ################LECTURA DE DATOS########################33
 
 ##NO2
-NO21 <- LecturaCSV("datasets/datasets_contaminantes/NO2/")
-NO2 <- uniondf(NO21)
+NO2 <- LecturaCSV("datasets/datasets_contaminantes/NO2/",",")
+NO2 <- uniondf(NO2)
 
 ###CO
-CO1 <- LecturaCSV("datasets/datasets_contaminantes/CO/")
-CO <- uniondf(CO1)
+CO <- LecturaCSV("datasets/datasets_contaminantes/CO",)
+CO <- uniondf(CO)
 
 ###O3
-O31 <- LecturaCSV("datasets/datasets_contaminantes/O3/")
-O3 <- uniondf(O31)
+O3 <- LecturaCSV("datasets/datasets_contaminantes/O3",",")
+O3 <- uniondf(O3)
 
 ###SO2
-SO21 <- LecturaCSV("datasets/datasets_contaminantes/SO2/")
-SO2 <- uniondf(SO21)
+SO2 <- LecturaCSV("datasets/datasets_contaminantes/SO2/")
+SO2 <- uniondf(SO2)
 
-
-##################################ORDENANDO DATOS POR EL A�O########################
+##################################ORDENANDO DATOS POR EL AÑO########################
 ##ORDENANDO DATOS
 CO <- orden(CO)
 SO2 <- orden(SO2)
 NO2 <- orden(NO2)
 O3 <- orden(O3)
+#P10 <- orden(P10)
+#PM25 <- orden(PM25)
 
 ##########################Sustituir -99 por NA#############################3
 NO2[NO2 =="-99"] <- NA
 O3[O3 =="-99"] <- NA
 SO2[SO2 =="-99"] <- NA
+#P10[P10 =="-99"] <- NA
+#PM25[PM25 =="-99"] <-NA
 
 ## En CO hay valores no numericos
 CO$TLA <- gsub(",",".",CO$TLA)
@@ -88,5 +93,7 @@ NO2 <- groupanios(NO2)
 O3 <- groupanios(O3)
 CO <- groupanios(CO)
 SO2 <- groupanios(SO2)
+#P10 <- groupanios(P10)
+#PM25 <- groupanios(PM25)
 
 ##############################################################################################3
