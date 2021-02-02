@@ -20,7 +20,7 @@ LecturaCSV <- function(url,sep){
 ##Se seleccionan las columnas necesarias para trabajar 
 ##UIZ, PED no están en todos los datasets (P10 Y PM25)
 uniondf <- function(data1,data2=NULL){
-  DATA1 <- lapply(lista, select, c(contains("FECHA"), TLA, MER, UIZ, PED))
+  DATA1 <- lapply(c(data1,data2), select, c(contains("FECHA"), TLA, MER, UIZ, PED))
   n = length(DATA1)
   for (i in 1:n){
     names(DATA1[[i]]) = c("FECHA", "TLA", "MER", "UIZ", "PED") 
@@ -52,8 +52,9 @@ NO2 <- LecturaCSV("datasets/datasets_contaminantes/NO2/",",")
 NO2 <- uniondf(NO2)
 
 ###CO
-CO <- LecturaCSV("datasets/datasets_contaminantes/CO",",")
-CO <- uniondf(CO)
+CO1 <- LecturaCSV("datasets/datasets_contaminantes/CO/sinpunto",",")
+CO2 <- LecturaCSV("datasets/datasets_contaminantes/CO/punto",";")
+CO <- uniondf(CO1,CO2)
 
 ###O3
 O3 <- LecturaCSV("datasets/datasets_contaminantes/O3",",")
