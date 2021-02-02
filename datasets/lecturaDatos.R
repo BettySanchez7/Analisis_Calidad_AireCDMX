@@ -52,7 +52,7 @@ NO2 <- LecturaCSV("datasets/datasets_contaminantes/NO2/",",")
 NO2 <- uniondf(NO2)
 
 ###CO
-CO <- LecturaCSV("datasets/datasets_contaminantes/CO",)
+CO <- LecturaCSV("datasets/datasets_contaminantes/CO",",")
 CO <- uniondf(CO)
 
 ###O3
@@ -60,7 +60,7 @@ O3 <- LecturaCSV("datasets/datasets_contaminantes/O3",",")
 O3 <- uniondf(O3)
 
 ###SO2
-SO2 <- LecturaCSV("datasets/datasets_contaminantes/SO2/")
+SO2 <- LecturaCSV("datasets/datasets_contaminantes/SO2/",",")
 SO2 <- uniondf(SO2)
 
 ##################################ORDENANDO DATOS POR EL AÑO########################
