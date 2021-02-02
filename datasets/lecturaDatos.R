@@ -2,10 +2,15 @@ library(dplyr)
 library(ggplot2)
 library(e1071)
 
+
+#Seleccionando carpeta de trabajo
+setwd("Documentos/BEDU_DataScience/Proyecto/Analisis_Calidad_AireCDMX")
+
 ##ALGUNOS DATASETS NO SE CARGABAN SEPARADOS POR COMAS POR LO QUE HICE UNA FUNCIÓN PARA CARGAR LOS QUE 
 ##SE SEPARARAN POR "," Y OTRA PARA LOS QUE SE SEPARABAN POR ";"
 
 ##########################FUNCIONES PARA LA LECTURA Y LIMPIEZA DE DATOS####################3
+<<<<<<< HEAD
 ##Separada por comas
 LecturaCSV <- function(url){
   setwd(url)
@@ -15,12 +20,18 @@ LecturaCSV <- function(url){
 
 ##Separada por punto y coma
 
+=======
+##Indicar separador entre comillas dobles
+LecturaCSV <- function(url,sep){
+  nombre <- lapply(dir(path = url,full.names = T), read.csv, sep = sep)
+}
+>>>>>>> 89ed47a83befc83bb1ceb12e62ce3d703ed0d74c
 
 ##Unión de datasets  
 ##Se unen los datasets y se renombra columnas para que coincidad
 ##Se seleccionan las columnas necesarias para trabajar 
 ##UIZ, PED no están en todos los datasets (P10 Y PM25)
-uniondf <- function(data1, data2=NULL){
+uniondf <- function(data1,data2=NULL){
   DATA1 <- lapply(c(data1,data2), select, c(contains("FECHA"), TLA, MER, UIZ, PED))
   n = length(DATA1)
   for (i in 1:n){
@@ -49,38 +60,21 @@ groupanios <- function(dataframe){
 ################LECTURA DE DATOS########################33
 
 ##NO2
-NO21 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/NO2/sinpunto")
-NO22 <- LecturaCSV2("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/NO2/punto")
-
-NO2 <- uniondf(NO21, NO22)
+NO2 <- LecturaCSV("datasets/datasets_contaminantes/NO2/",",")
+NO2 <- uniondf(NO2)
 
 ###CO
-CO1 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/CO/sinpunto")
-CO2 <- LecturaCSV2("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/CO/punto")
-
-CO <- uniondf(CO1, CO2)
+CO1 <- LecturaCSV("datasets/datasets_contaminantes/CO/sinpunto",",")
+CO2 <- LecturaCSV("datasets/datasets_contaminantes/CO/punto",";")
+CO <- uniondf(CO1,CO2)
 
 ###O3
-O31 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/O3/sinpunto")
-O32 <- LecturaCSV2("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/O3/punto")
-O3 <- uniondf(O31, O32)
+O3 <- LecturaCSV("datasets/datasets_contaminantes/O3",",")
+O3 <- uniondf(O3)
 
 ###SO2
-SO21 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/SO2/sinpunto")
-SO22 <- LecturaCSV2("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/SO2/punto")
-
-SO2 <- uniondf(SO21, SO22)
-
-###P10 UIZ NO EXISTE (CAMBIAR FUNCIÓN uniondfd)
-#P101 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/P10/sinpunto")
-#P102 <- LecturaCSV2("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/P10/conpunto")
-#P10 <- uniondf(P101, P102)
-
-###PM25 NO EXISTE PED (CAMBIAR FUNCIÓN uniondfd)
-#PM251 <- LecturaCSV("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/PM25/sinpunto")
-#PM252 <- LecturaCSV2("C:/Users/bety-/Documents/CURSOS/DATA SCIENCE/FundamentosR/Proyecto/contaminantes/PM25/punto")
-#PM25 <- uniondf(PM251, PM252)
-
+SO2 <- LecturaCSV("datasets/datasets_contaminantes/SO2/",",")
+SO2 <- uniondf(SO2)
 
 ##################################ORDENANDO DATOS POR EL AÑO########################
 ##ORDENANDO DATOS
