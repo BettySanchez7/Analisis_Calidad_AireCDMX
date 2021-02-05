@@ -84,7 +84,7 @@ prom_anualSO2_2020 <- mutate(prom_anualSO2_2020, Promedio = as.numeric(PromedioS
 
 #Graficando promedio anual de zonas por parametro
 ggplot(prom_anualCO2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+  geom_col(fill = "gray") +
   labs(x = "Zona", y = "Promedio Anual",
        title = "Promedio Anual de Concentración de CO por zona - 2019 ")
 
@@ -94,7 +94,7 @@ ggplot(prom_anualCO2020,aes(x=zonas, y=Promedio)) +
        title = "Promedio Anual de Concentración de CO por zona - 2020 ")
 
 ggplot(prom_anualNO2_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+  geom_col(fill = "gray") +
   labs(x = "Zona", y = "Promedio Anual",
        title = "Promedio Anual de Concentración de NO2 por zona - 2019 ")
 
@@ -105,7 +105,7 @@ ggplot(prom_anualNO2_2020,aes(x=zonas, y=Promedio)) +
 
 
 ggplot(prom_anualO3_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+  geom_col(fill = "gray") +
   labs(x = "Zona", y = "Promedio Anual",
        title = "Promedio Anual de Concentración de NO2 por zona - 2019")
 
@@ -115,7 +115,7 @@ ggplot(prom_anualO3_2020,aes(x=zonas, y=Promedio)) +
        title = "Promedio Anual de Concentración de NO2 por zona - 2020")
 
 ggplot(prom_anualPM10_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+  geom_col(fill = "gray") +
   labs(x = "Zona", y = "Promedio Anual",
        title = "Promedio Anual de Concentración de PM10 por zona - 2019")
 
@@ -125,11 +125,11 @@ ggplot(prom_anualPM10_2020,aes(x=zonas, y=Promedio)) +
        title = "Promedio Anual de Concentración de PM10 por zona - 2020")
 
 ggplot(prom_anualSO2_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+  geom_col(fill = "gray") +
   labs(x = "Zona", y = "Promedio Anual",
        title = "Promedio Anual de Concentración de SO2 por zona - 2019")
 
 ggplot(prom_anualSO2_2020,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+  geom_col(fill = "red") +
   labs(x = "Zona", y = "Promedio Anual",
        title = "Promedio Anual de Concentración de SO2 por zona - 2020")
