@@ -38,6 +38,7 @@ DF.2018<-DF.2018[,-c(28:29)]
 DF.2019<-DF.2019[,-c(8,14,20,26,32)]
 DF.2020<-DF.2020[,-c(8,14,20,26,32)]
 
+
 tags<-c( "Fecha"              ,        "Hora"                ,          "Noroeste.Ozono"               ,
  "Noroeste.dioxido.de.azufre"   , "Noroeste.dioxido.de.nitrogeno", "Noroeste.monoxido.de.carbono" ,
  "Noroeste.PM10"                , "Noreste.Ozono"                , "Noreste.dioxido.de.azufre"    ,
@@ -82,6 +83,13 @@ SO2 <- select(DF.ALL,Fecha,contains("dioxido.de.azufre"))
 NO2 <- select(DF.ALL,Fecha,contains("dioxido.de.nitrogeno"))
 CO <- select(DF.ALL,Fecha,contains("monoxido.de.carbono"))
 PM10 <- select(DF.ALL,Fecha,contains("PM10"))
+
+#Reemplazando -99 por NA
+O3[O3 == -99] <- NA
+NO2[NO2 == -99] <- NA
+SO2[SO2 == -99] <- NA
+CO[CO == -99] <- NA
+PM10[PM10 == -99] <- NA
 
 #Escribiendo archivos de trabajo
 write.csv(O3,"datos_IMECA/datos_limpios/O3.csv",row.names = FALSE)
