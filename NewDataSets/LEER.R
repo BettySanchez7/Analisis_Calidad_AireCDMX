@@ -1,9 +1,28 @@
-library(ggplot2)
+# LECTURA, LIMPIEZA Y AGRUPAMIENTO ACHIVOS IMECA #
+
 library(dplyr)
+library(lubridate) #Paquete para manipular fechas
 
 getwd()
-#Aqui va la ruta donde est·n alojados archivos
-setwd("C:/Users/leona/Desktop/Nueva carpeta (2)/NewDataSets/csv")
+#Aqui va la ruta donde est√°n alojados archivos
+setwd("csv/")
+
+##########################FUNCIONES PARA LA LECTURA Y LIMPIEZA DE DATOS####################
+##ORDENAR datasets por fecha
+orden <- function(datos){
+        datos[order(as.Date(datos$FECHA, format="%d/%m/%Y")),]
+}
+
+##Agrupando por mes, se obtiene el promedio mensual para cada estaci√≥n ###
+groupmeses <- function(dataframe){
+        data_mes <- mutate(dataframe, FECHA= as.Date(FECHA, "%d/%m/%Y"))
+        data_mes <- mutate(data_mes, mes= floor_date(data_mes$FECHA, "month"))
+        result <- data_mes %>%  group_by(mes) %>%
+                summarise(mean.TLA=mean(TLA, na.rm = TRUE), mean.MER=mean(MER, na.rm = TRUE),
+                          mean.UIZ=mean(UIZ, na.rm = TRUE),mean.PED=mean(PED, na.rm = TRUE),
+                          mean.SAG=mean(SAG, na.rm = TRUE),mean.XAL=mean(XAL, na.rm = TRUE), cont=n())
+        return(result)
+}
 
 #LECTURA DE DATOS
 DF.2005<-read.csv("imeca2005.csv")
@@ -24,6 +43,7 @@ DF.2019<-read.csv("imeca2019.csv")
 DF.2020<-read.csv("imeca2020.csv")
 
 
+#Eliminando columnas inecesarias (PM2.5 se agreg√≥ a partir de 2019)
 DF.2010<-DF.2010[,-c(28:32)]
 DF.2011<-DF.2011[,-c(28:31)]
 DF.2012<-DF.2012[,-c(28:31)]
@@ -36,7 +56,7 @@ DF.2018<-DF.2018[,-c(28:29)]
 DF.2019<-DF.2019[,-c(8,14,20,26,32)]
 DF.2020<-DF.2020[,-c(8,14,20,26,32)]
 
-tags<-c( "Ô..Fecha"              ,        "Hora"                ,          "Noroeste.Ozono"               ,
+tags<-c( "Fecha"              ,        "Hora"                ,          "Noroeste.Ozono"               ,
  "Noroeste.dioxido.de.azufre"   , "Noroeste.dioxido.de.nitrogeno", "Noroeste.monoxido.de.carbono" ,
  "Noroeste.PM10"                , "Noreste.Ozono"                , "Noreste.dioxido.de.azufre"    ,
  "Noreste.dioxido.de.nitrogeno" , "Noreste.monoxido.de.carbono"  , "Noreste.PM10"                 ,
@@ -50,18 +70,14 @@ tags<-c( "Ô..Fecha"              ,        "Hora"                ,          "Noro
 names(DF.2019)<-tags
 names(DF.2020)<-tags
 
-#Nota, las mediciones de PM25 comienzan en el database a partir del aÒo de 2019
-
+#Uniendo todo en un mismo DF
 DF.ALL<-rbind(DF.2005,DF.2006,DF.2007,DF.2008,DF.2009,DF.2010,DF.2011,DF.2012,DF.2013,
               DF.2014,DF.2015,DF.2016,DF.2017,DF.2018,DF.2019,DF.2020)
 
-#Separamos los DATAFRAME en DF m·s pequeÒos.
+#Separamos los DATAFRAME en DF m√°s peque√±os.
 #Noroeste
-DF.NO.O3<-select(DF.ALL,c(1,3))
-DF.NO.OS<-select(DF.ALL,c(1,4))
-DF.NO.ON<-select(DF.ALL,c(1,5))
-DF.NO.OC<-select(DF.ALL,c(1,6))
-DF.NO.P10<-select(DF.ALL,c(1,7))
+NW <- select(DF.ALL,c(1,3:7))
+
 #Noreste
 DF.NE.O3<-select(DF.ALL,c(1,8))
 DF.NE.OS<-select(DF.ALL,c(1,9))
@@ -90,7 +106,7 @@ DF.SE.ON<-select(DF.ALL,c(1,25))
 DF.SE.OC<-select(DF.ALL,c(1,26))
 DF.SE.P10<-select(DF.ALL,c(1,27))
 
-#Salida de informaciÛn
+#Salida de informaci?n
 setwd("C:/Users/leona/Desktop/Nueva carpeta (2)/NewDataSets/DataPocess")
 write.csv(DF.NO.O3,"Noroeste_O3.csv",row.names = FALSE)
 write.csv(DF.NO.OS,"Noroeste_0S.csv",row.names = FALSE)
