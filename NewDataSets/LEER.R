@@ -5,7 +5,7 @@ library(lubridate) #Paquete para manipular fechas
 
 getwd()
 #Aqui va la ruta donde están alojados archivos
-setwd("csv/")
+setwd("/NewDataSets/csv/")
 
 ##########################FUNCIONES PARA LA LECTURA Y LIMPIEZA DE DATOS####################
 ##ORDENAR datasets por fecha
@@ -67,13 +67,27 @@ tags<-c( "Fecha"              ,        "Hora"                ,          "Noroest
  "Sureste.dioxido.de.nitrogeno" , "Sureste.monoxido.de.carbono"  , "Sureste.PM10" )
 
 #Renombramos algunas de las DF
+names(DF.2005)<-tags
+names(DF.2006)<-tags
+names(DF.2007)<-tags
+names(DF.2008)<-tags
+names(DF.2009)<-tags
+names(DF.2010)<-tags
+names(DF.2011)<-tags
+names(DF.2012)<-tags
+names(DF.2013)<-tags
+names(DF.2014)<-tags
+names(DF.2015)<-tags
+names(DF.2016)<-tags
+names(DF.2017)<-tags
+names(DF.2018)<-tags
 names(DF.2019)<-tags
 names(DF.2020)<-tags
 
 #Uniendo todo en un mismo DF
 DF.ALL<-rbind(DF.2005,DF.2006,DF.2007,DF.2008,DF.2009,DF.2010,DF.2011,DF.2012,DF.2013,
               DF.2014,DF.2015,DF.2016,DF.2017,DF.2018,DF.2019,DF.2020)
-
+str(DF.ALL)
 #Separamos los DATAFRAME en DF más pequeños.
 #Noroeste
 NW <- select(DF.ALL,c(1,3:7))
