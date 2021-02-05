@@ -110,12 +110,12 @@ ggplot(prom_anualNO2_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color
 ggplot(prom_anualO3_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="blue", size = 1) +
   geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de NO2 por Zona - 2019")
+       title = "Promedio Anual de Concentración de O3 por Zona - 2019")
 
 ggplot(prom_anualO3_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="red", size = 1) +
   geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de NO2 por Zona - 2020")
+       title = "Promedio Anual de Concentración de O3 por Zona - 2020")
 
 ggplot(prom_anualPM10_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="blue", size = 1) +
   geom_point(size = 2) +
