@@ -1,13 +1,15 @@
 # ANÁLSIS DE SERIES DE TIEMPO #
 
 library(dplyr)
+library(ggplot2)
 library(TSA)
 library(lubridate) #Paquete para manipular fechas
-library(naniar) #libreria quita -99 por NA
+library(reshape2)
+library(scales)   # to access breaks/formatting functions
+library(gridExtra)
 
 #Carpeta de trabajo
 getwd()
-
 
 ### Función de agrupación de promedios mensuales ###
 groupmeses <- function(dataframe){
@@ -20,8 +22,7 @@ groupmeses <- function(dataframe){
   return(result)
 }
 
-
-### LECTURA ARCHIVOS ###
+############################### LECTURA ARCHIVOS ###########################################
 CO <- read.csv("datos_IMECA/datos_limpios/CO.csv")
 NO2 <- read.csv("datos_IMECA/datos_limpios/NO2.csv")
 SO2 <- read.csv("datos_IMECA/datos_limpios/SO2.csv")
@@ -50,8 +51,7 @@ SO2 <- SO2[1:192,]
 O3 <- O3[1:192,]
 PM10 <- PM10[1:192,]
 
-
-### SERIES DE TIEMPO ###
+################################## SERIES DE TIEMPO ###########################################
 #Zona Noroeste
 NO.CO.ts<-ts(CO$NO, start = 2005, frequency = 12)
 NO.NO2.ts<-ts(NO2$NO, start = 2005, frequency = 12)
@@ -87,3 +87,78 @@ SE.SO2.ts<- ts(SO2$SE,start = 2005,  frequency = 12)
 SE.03.ts<-  ts(O3$SE, start = 2005, frequency = 12)
 SE.PM10.ts<-ts(PM10$SE,start = 2005,  frequency = 12)
 
+
+############################ GRAFICANDO SERIES DE TIEMPO ######################################
+#Para la graficación de multiples series de tiempo en un mismo recuadro
+#Los juntamos todos en una sola tabla primero
+TS.CO <- melt(CO, id.vars = "mes")
+TS.NO2 <- melt(NO2, id.vars = "mes")
+TS.O3 <- melt(O3, id.vars = "mes")
+TS.PM10 <- melt(PM10, id.vars = "mes")
+TS.SO2 <- melt(SO2, id.vars = "mes")
+
+#Gráfica total CO
+ggplot(TS.CO, aes(x = mes, y = value, color = variable)) +
+  geom_line(size = 0.5)+
+  scale_color_manual(values = c("green", "blue", "red","yellow","pink"))
+
+##Gŕaficas individuales (solo para mirar cuáles nos interesan)
+#CO
+layout(1:3)
+ts.plot(NO.CO.ts)
+ts.plot(NE.CO.ts)
+ts.plot(CE.CO.ts)
+ts.plot(SO.CO.ts)
+ts.plot(SE.CO.ts)
+dev.off()
+
+#NO2
+layout(1:3)
+ts.plot(NO.NO2.ts)
+ts.plot(NE.NO2.ts)
+ts.plot(CE.NO2.ts)
+ts.plot(SO.NO2.ts)
+ts.plot(SE.NO2.ts)
+dev.off()
+
+#SO2
+layout(1:3)
+ts.plot(NO.SO2.ts)
+ts.plot(NE.SO2.ts)
+ts.plot(CE.SO2.ts)
+ts.plot(SO.SO2.ts)
+ts.plot(SE.SO2.ts)
+dev.off()
+
+#03
+layout(1:3)
+ts.plot(NO.03.ts)
+ts.plot(NE.03.ts)
+ts.plot(CE.03.ts)
+ts.plot(SO.03.ts)
+ts.plot(SE.03.ts)
+dev.off()
+
+#PM10
+layout(1:3)
+ts.plot(NO.PM10.ts)
+ts.plot(NE.PM10.ts)
+ts.plot(CE.PM10.ts)
+ts.plot(SO.PM10.ts)
+ts.plot(SE.PM10.ts)
+dev.off()
+
+
+#### Descomposición de series seleccionadas (pruebas)
+CE.CO.comp <-decompose(CE.CO.ts,type = "mult")
+plot(CE.CO.comp)
+
+plot(CE.CO.ts, main = "Medición CO - Zona Centro", ylab = "Valor IMECA   [0-200]", xlab = "Tiempo")
+lines(CE.CO.comp$trend , col = "darkred", lwd = 2.5,lty = 2)
+
+ #Probando lo anterior con ggplot
+trend_prueba <- as.numeric(CE.CO.comp$trend)
+
+ggplot(CO,aes(x=mes)) +
+  geom_line(aes(y=CE))+
+  geom_line(aes(y=trend_prueba), color = "darkred",lty = 2.2,lwd = 0.9)
