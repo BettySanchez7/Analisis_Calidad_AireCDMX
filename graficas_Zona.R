@@ -1,6 +1,9 @@
+#Uso de bibliotecas
 library(ggplot2)
+library(dplyr)
 getwd()
 setwd("C:/Users/ramze/Desktop/Analisis_Calidad_AireCDMX/datos_IMECA/datos_limpios/promedios")
+
 #Obteniendo los datos
 CO <- read.csv("Media_CO.csv")
 NO2 <- read.csv("Media_NO2.csv")
@@ -83,53 +86,54 @@ prom_anualSO2_2020 <- as.data.frame(cbind(PromedioSO2_2020,zonas))
 prom_anualSO2_2020 <- mutate(prom_anualSO2_2020, Promedio = as.numeric(PromedioSO2_2020))
 
 #Graficando promedio anual de zonas por parametro
-ggplot(prom_anualCO2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "gray") +
+ggplot(prom_anualCO2019,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="blue", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de CO por zona - 2019 ")
+       title = "Promedio Anual de Concentración de CO por Zona - 2019 ")
 
-ggplot(prom_anualCO2020,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+ggplot(prom_anualCO2020,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="red", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de CO por zona - 2020 ")
+       title = "Promedio Anual de Concentración de CO por Zona - 2020 ")
 
-ggplot(prom_anualNO2_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "gray") +
+ggplot(prom_anualNO2_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="blue", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de NO2 por zona - 2019 ")
+       title = "Promedio Anual de Concentración de NO2 por Zona - 2019 ")
 
-ggplot(prom_anualNO2_2020,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+ggplot(prom_anualNO2_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="red", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de NO2 por zona - 2020 ")
+       title = "Promedio Anual de Concentración de NO2 por Zona - 2020 ")
 
 
-ggplot(prom_anualO3_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "gray") +
+ggplot(prom_anualO3_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="blue", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de NO2 por zona - 2019")
+       title = "Promedio Anual de Concentración de NO2 por Zona - 2019")
 
-ggplot(prom_anualO3_2020,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+ggplot(prom_anualO3_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="red", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de NO2 por zona - 2020")
+       title = "Promedio Anual de Concentración de NO2 por Zona - 2020")
 
-ggplot(prom_anualPM10_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "gray") +
+ggplot(prom_anualPM10_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="blue", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de PM10 por zona - 2019")
+       title = "Promedio Anual de Concentración de PM10 por Zona - 2019")
 
-ggplot(prom_anualPM10_2020,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "blue") +
+ggplot(prom_anualPM10_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="red", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de PM10 por zona - 2020")
+       title = "Promedio Anual de Concentración de PM10 por Zona - 2020")
 
-ggplot(prom_anualSO2_2019,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "gray") +
+ggplot(prom_anualSO2_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="blue", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de SO2 por zona - 2019")
+       title = "Promedio Anual de Concentración de SO2 por Zona - 2019")
 
-ggplot(prom_anualSO2_2020,aes(x=zonas, y=Promedio)) + 
-  geom_col(fill = "red") +
+ggplot(prom_anualSO2_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_line(color="red", size = 1) +
+  geom_point(size = 2) +
   labs(x = "Zona", y = "Promedio Anual",
-       title = "Promedio Anual de Concentración de SO2 por zona - 2020")
+       title = "Promedio Anual de Concentración de SO2 por Zona - 2020")
+
