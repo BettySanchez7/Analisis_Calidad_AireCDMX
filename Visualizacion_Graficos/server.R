@@ -12,6 +12,7 @@ library(dplyr)
 library(ggplot2)
 library(egg)
 library(lubridate)
+
 getwd()
 #Aqui va la ruta donde estÃ¡n alojados archivos
 setwd("C:/Users/bety-/Documents/Repositorios/Analisis_Calidad_AireCDMX/datos_IMECA/datos_limpios/promedios")
@@ -82,14 +83,16 @@ shinyServer(function(input, output) {
         switch(input$y)
     )
         
-    
+    cols= 
     output$plot <- renderPlot({
             y <- datasetImput()[ ,input$y]
             ggplot(datasetImput(), aes(x=Fecha, y=y))+
-                geom_bar(stat="identity") + 
+                geom_bar(stat="identity", aes(fill=y)) + 
                 labs(x = "Mes", y = "Concentración",
                      title = "Concentración de parametro")+
-                theme_test() 
+                theme_test() +
+                scale_fill_gradient (low = "green", high = "red" )
+            
     
 })
 })
