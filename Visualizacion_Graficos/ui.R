@@ -13,7 +13,7 @@ library(shiny)
 shinyUI(fluidPage(
     
     pageWithSidebar(
-        headerPanel("Visualización de concentración de parámetros de contaminación en la CDMX"),
+        headerPanel("Concentración de contaminantes en el aire de la Ciudad de México"),
         sidebarPanel(
             selectInput("dataset", "Elige el parametro y año", 
                         c("CO_2019", "NO2_2019", "O3_2019", "PM10_2019", "SO2_2019",
@@ -43,8 +43,10 @@ shinyUI(fluidPage(
                               height = 450, width = 450)
                 ),
                 tabPanel("Interpretacion datos IMECA",                #Interpretación IMECA
-                         img( src = "serieTiempo.png", 
-                              height = 450, width = 450)
+                         textOutput("IMECA"),
+                         img( src = "imeca.png", 
+                              height = 250, width = 500)
+                         
                 )
             )
         )

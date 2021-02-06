@@ -84,6 +84,17 @@ shinyServer(function(input, output) {
                )
         
     output$output_text <- renderText(paste("Graficas"))
+    output$IMECA <- renderText(paste("Los datos trabajados en este proyecto se obtuvieron de la base 
+                                     de datos de la IMECA, este es el índice metropolitano de la calidad del aire funciona en
+                                     México como valor de referencia para que la población de 
+                                     grandes ciudades como la Ciudad de México y área metropolitana
+                                     comprenda los niveles de contaminación del aire que prevalecen
+                                     en su zona de transporte de residencia o trabajo.
+                                     La finalidad fue conocer la concentración de parámetros de contaminación
+                                     en la Ciudad de México, la escala que se expresa en nuestros resultados 
+                                     va de un valor de 0-200, los cuales indican la condición de la calidad del aire
+                                     de acuerdo a la siguiente tabla.
+                                     "))
 
     output$plot <- renderPlot({
             y <- datasetImput()[ ,input$y]
