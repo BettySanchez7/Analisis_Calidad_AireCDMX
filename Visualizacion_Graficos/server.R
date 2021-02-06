@@ -81,9 +81,9 @@ shinyServer(function(input, output) {
     
     ejey <-reactive(
         switch(input$y)
-    )
+               )
         
-    cols= 
+    output$output_text <- renderText(paste("Graficas"))
     output$plot <- renderPlot({
             y <- datasetImput()[ ,input$y]
             ggplot(datasetImput(), aes(x=Fecha, y=y))+
@@ -92,7 +92,7 @@ shinyServer(function(input, output) {
                      title = "Concentración de parametro")+
                 theme_test() +
                 scale_fill_gradient (low = "green", high = "red" )
-            
     
-})
+    })
+    
 })
