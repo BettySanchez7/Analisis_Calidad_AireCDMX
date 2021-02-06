@@ -43,7 +43,10 @@ shinyUI(fluidPage(
                               height = 450, width = 450)
                 ),
                 tabPanel("Interpretacion datos IMECA",                #Interpretación IMECA
-                         textOutput("IMECA")
+                         textOutput("IMECA"),
+                         img( src = "imeca.png", 
+                              height = 250, width = 500)
+                         
                 )
             )
         )
