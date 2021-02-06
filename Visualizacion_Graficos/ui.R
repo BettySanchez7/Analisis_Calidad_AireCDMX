@@ -11,9 +11,9 @@ library(shiny)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-
+    
     pageWithSidebar(
-        headerPanel("Visualización de concentración de parámetros en el año 2019 y 2020"),
+        headerPanel("Visualización de concentración de parámetros de contaminación en la CDMX"),
         sidebarPanel(
             selectInput("dataset", "Elige el parametro y año", 
                         c("CO_2019", "NO2_2019", "O3_2019", "PM10_2019", "SO2_2019",
@@ -27,14 +27,25 @@ shinyUI(fluidPage(
         # Show a plot of the generated distribution
         mainPanel(
             tabsetPanel(
-            tabPanel("Promedio mensual",
-                     h3(textOutput("output_text")),
-                     plotOutput("plot")
-                     ),
-            tabPanel("Promedio anual",                #Pestaña de imágenes  <---------
-                     img( src = "imagen.png", 
-                          height = 450, width = 450)
-            )
+                tabPanel("Promedio mensual",             #Promedio mensual
+                         h3(textOutput("output_text")),
+                         plotOutput("plot"),
+                         #textOutput("interpretacion")
+                         img( src = "inter.png", 
+                              height = 200, width = 700)
+                ),
+                tabPanel("Promedio anual",                #Promedio anual
+                         img( src = "anios.png", 
+                              height = 1560, width = 864)
+                ),
+                tabPanel("Series de tiempo",                #Series de tiempo
+                         img( src = "serieTiempo.png", 
+                              height = 450, width = 450)
+                ),
+                tabPanel("Interpretacion datos IMECA",                #Interpretación IMECA
+                         img( src = "serieTiempo.png", 
+                              height = 450, width = 450)
+                )
             )
         )
     )

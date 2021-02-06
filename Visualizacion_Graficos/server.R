@@ -63,7 +63,7 @@ SO2_2020$Fecha <- fecha(SO2_2020)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-
+    
     datasetImput <- reactive(
         switch(input$dataset, 
                "CO_2019" = CO_2019, 
@@ -84,11 +84,12 @@ shinyServer(function(input, output) {
                )
         
     output$output_text <- renderText(paste("Graficas"))
+
     output$plot <- renderPlot({
             y <- datasetImput()[ ,input$y]
             ggplot(datasetImput(), aes(x=Fecha, y=y))+
                 geom_bar(stat="identity", aes(fill=y)) + 
-                labs(x = "Mes", y = "Concentración",
+                labs(x = "Mes", y = "Concentración [Unidades IMECA]",
                      title = "Concentración de parametro")+
                 theme_test() +
                 scale_fill_gradient (low = "green", high = "red" )
