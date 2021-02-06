@@ -1,4 +1,4 @@
-#Uso de bibliotecas
+#Uso de paquetes
 library(ggplot2)
 library(dplyr)
 getwd()
