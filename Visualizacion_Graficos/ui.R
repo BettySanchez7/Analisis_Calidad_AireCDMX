@@ -20,7 +20,7 @@ shinyUI(fluidPage(
                           "CO_2020", "NO2_2020", "O3_2020", "PM10_2020", "SO2_2020")),
             
             selectInput("y", "Elige la zona", 
-                        choices = names(CO_2019),
+                        choices = c("NO","NE","CE","SO","SE"),
                         selected = "NO")
         ),
         
