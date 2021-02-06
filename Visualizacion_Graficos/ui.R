@@ -39,8 +39,8 @@ shinyUI(fluidPage(
                               height = 1560, width = 864)
                 ),
                 tabPanel("Series de tiempo",                #Series de tiempo
-                         img( src = "serieTiempo.png", 
-                              height = 450, width = 450)
+                         img( src = "tiempo.png", 
+                              height = 900, width = 1350)
                 ),
                 tabPanel("Interpretacion datos IMECA",                #Interpretación IMECA
                          textOutput("IMECA"),
