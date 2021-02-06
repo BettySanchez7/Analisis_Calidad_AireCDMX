@@ -8,3 +8,7 @@ Se utilizaron datos del IMECA (Índice Metropolitano de la Calidad del Aire), qu
 
 Los datos pueden descargarse [aquí](http://www.aire.cdmx.gob.mx/estadisticas-consultas/consultas/download_imeca.php).   
 *Nota: Para el año 2019 los datos se encontraban incompletos, pero se encontraron en este otro [enlace](http://www.aire.cdmx.gob.mx/default.php?opc=%27aqBjnmU=%27).*
+
+
+URL de dashboard: https://analisisairecdmx.shinyapps.io/Grafica1/?_ga=2.226463194.1120877711.1612593762-1846519941.1612593762
+
