@@ -5,8 +5,6 @@ library(ggplot2)
 library(TSA)
 library(lubridate) #Paquete para manipular fechas
 library(reshape2)
-library(scales)   # to access breaks/formatting functions
-library(gridExtra)
 
 #Carpeta de trabajo
 getwd()
