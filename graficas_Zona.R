@@ -108,52 +108,62 @@ prom_anualSO2_2020$zonas <- factor(prom_anualSO2_2020$zonas,levels = zonas)
 ggplot(prom_anualCO2019,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="blue") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de CO por Zona - 2019 ") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 
 ggplot(prom_anualCO2020,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="red") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de CO por Zona - 2020 ") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 ggplot(prom_anualNO2_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="blue") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de NO2 por Zona - 2019 ") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 ggplot(prom_anualNO2_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="red") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de NO2 por Zona - 2020 ") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 
 ggplot(prom_anualO3_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="blue") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de O3 por Zona - 2019") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 ggplot(prom_anualO3_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="red") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de O3 por Zona - 2020") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 ggplot(prom_anualPM10_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="blue") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de PM10 por Zona - 2019") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 ggplot(prom_anualPM10_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="red") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de PM10 por Zona - 2020") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 ggplot(prom_anualSO2_2019,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="blue") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de SO2 por Zona - 2019") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
 ggplot(prom_anualSO2_2020,aes(x=zonas, y=Promedio, group = 1)) + geom_col(fill="red") +
   labs(x = "Zona", y = "Concentración [unidades IMECA]",
        title = "Promedio Anual de Concentración de SO2 por Zona - 2020") +
-  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5)
+  geom_text(aes(label= round(Promedio,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  theme_test()
 
