@@ -56,35 +56,35 @@ PM10 <- PM10[1:192,]
 NO.CO.ts<-ts(CO$NO, start = 2005, frequency = 12)
 NO.NO2.ts<-ts(NO2$NO, start = 2005, frequency = 12)
 NO.SO2.ts<-ts(SO2$NO,start = 2005,  frequency = 12)
-NO.03.ts<-ts(O3$NO,start = 2005,  frequency = 12)
+NO.O3.ts<-ts(O3$NO,start = 2005,  frequency = 12)
 NO.PM10.ts<-ts(PM10$NO, start = 2005, frequency = 12)
 
 #ZONA NORESTE
 NE.CO.ts<-ts(CO$NE, start = 2005, frequency = 12)
 NE.NO2.ts<-ts(NO2$NE, start = 2005, frequency = 12)
 NE.SO2.ts<-ts(SO2$NE,start = 2005,  frequency = 12)
-NE.03.ts<-ts(O3$NE, start = 2005, frequency = 12)
+NE.O3.ts<-ts(O3$NE, start = 2005, frequency = 12)
 NE.PM10.ts<-ts(PM10$NE,start = 2005,  frequency = 12)
 
 #ZONA CENTRO
 CE.CO.ts<-ts(CO$CE, start = 2005, frequency = 12)
 CE.NO2.ts<-ts(NO2$CE,start = 2005,  frequency = 12)
 CE.SO2.ts<-ts(SO2$CE,start = 2005,  frequency = 12)
-CE.03.ts<-ts(O3$CE,start = 2005,  frequency = 12)
+CE.O3.ts<-ts(O3$CE,start = 2005,  frequency = 12)
 CE.PM10.ts<-ts(PM10$CE,start = 2005,  frequency = 12)
 
 #ZONA SUROESTE
 SO.CO.ts<-ts(CO$SO,start = 2005,  frequency = 12)
 SO.NO2.ts<-ts(NO2$SO,start = 2005,  frequency = 12)
 SO.SO2.ts<-ts(SO2$SO,start = 2005,  frequency = 12)
-SO.03.ts<-ts(O3$SO, start = 2005, frequency = 12)
+SO.O3.ts<-ts(O3$SO, start = 2005, frequency = 12)
 SO.PM10.ts<-ts(PM10$SO,start = 2005,  frequency = 12)
 
 #ZONA SURESTE
 SE.CO.ts<-  ts(CO$SE, start = 2005, frequency = 12)
 SE.NO2.ts<- ts(NO2$SE,start = 2005,  frequency = 12)
 SE.SO2.ts<- ts(SO2$SE,start = 2005,  frequency = 12)
-SE.03.ts<-  ts(O3$SE, start = 2005, frequency = 12)
+SE.O3.ts<-  ts(O3$SE, start = 2005, frequency = 12)
 SE.PM10.ts<-ts(PM10$SE,start = 2005,  frequency = 12)
 
 
@@ -130,13 +130,13 @@ ts.plot(SO.SO2.ts)
 ts.plot(SE.SO2.ts)
 dev.off()
 
-#03
+#O3
 layout(1:3)
-ts.plot(NO.03.ts)
-ts.plot(NE.03.ts)
-ts.plot(CE.03.ts)
-ts.plot(SO.03.ts)
-ts.plot(SE.03.ts)
+ts.plot(NO.O3.ts)
+ts.plot(NE.O3.ts)
+ts.plot(CE.O3.ts)
+ts.plot(SO.O3.ts)
+ts.plot(SE.O3.ts)
 dev.off()
 
 #PM10
@@ -149,16 +149,79 @@ ts.plot(SE.PM10.ts)
 dev.off()
 
 
-#### Descomposición de series seleccionadas (pruebas)
+#### Descomposición de series para la Zona Centro
+#CO
 CE.CO.comp <-decompose(CE.CO.ts,type = "mult")
-plot(CE.CO.comp)
+#plot(CE.CO.comp)
 
-plot(CE.CO.ts, main = "Medición CO - Zona Centro", ylab = "Valor IMECA   [0-200]", xlab = "Tiempo")
-lines(CE.CO.comp$trend , col = "darkred", lwd = 2.5,lty = 2)
-
- #Probando lo anterior con ggplot
-trend_prueba <- as.numeric(CE.CO.comp$trend)
+trendCO <- as.numeric(CE.CO.comp$trend)
 
 ggplot(CO,aes(x=mes)) +
-  geom_line(aes(y=CE))+
-  geom_line(aes(y=trend_prueba), color = "darkred",lty = 2.2,lwd = 0.9)
+  geom_line(aes(y=CE,colour = "Serie de tiempo"))+
+  geom_line(aes(y=trendCO,colour = "Tendencia"), lwd = 0.9)+
+  scale_colour_manual("", breaks = c("Serie de tiempo", "Tendencia"),
+                      values = c("black", "darkred")) +
+  labs(title = "Concentración de CO - Zona Centro", y= "Valor IMECA   [0-200]",
+       x = "Tiempo",subtitle = "Serie de tiempo de Enero 2005 - Diciembre 2020")+
+  theme_classic()
+
+#NO2
+CE.NO2.comp <-decompose(CE.NO2.ts,type = "mult")
+#plot(CE.CO.comp)
+
+trendNO2 <- as.numeric(CE.NO2.comp$trend)
+
+ggplot(NO2,aes(x=mes)) +
+  geom_line(aes(y=CE,colour = "Serie de tiempo"))+
+  geom_line(aes(y=trendNO2,colour = "Tendencia"), lwd = 0.9)+
+  scale_colour_manual("", breaks = c("Serie de tiempo", "Tendencia"),
+                      values = c("black", "darkred")) +
+  labs(title = "Concentración de NO2 - Zona Centro", y= "Valor IMECA   [0-200]",
+       x = "Tiempo",subtitle = "Serie de tiempo de Enero 2005 - Diciembre 2020")+
+  theme_classic()
+
+#SO2
+CE.SO2.comp <-decompose(CE.SO2.ts,type = "mult")
+#plot(CE.CO.comp)
+
+trendSO2 <- as.numeric(CE.SO2.comp$trend)
+
+ggplot(SO2,aes(x=mes)) +
+  geom_line(aes(y=CE,colour = "Serie de tiempo"))+
+  geom_line(aes(y=trendSO2,colour = "Tendencia"), lwd = 0.9)+
+  scale_colour_manual("", breaks = c("Serie de tiempo", "Tendencia"),
+                      values = c("black", "darkred")) +
+  labs(title = "Concentración de SO2 - Zona Centro", y= "Valor IMECA   [0-200]",
+       x = "Tiempo",subtitle = "Serie de tiempo de Enero 2005 - Diciembre 2020")+
+  theme_classic()
+
+#O3
+CE.O3.comp <-decompose(CE.O3.ts,type = "mult")
+#plot(CE.CO.comp)
+
+trendO3 <- as.numeric(CE.O3.comp$trend)
+
+ggplot(O3,aes(x=mes)) +
+  geom_line(aes(y=CE,colour = "Serie de tiempo"))+
+  geom_line(aes(y=trendO3,colour = "Tendencia"), lwd = 0.9)+
+  scale_colour_manual("", breaks = c("Serie de tiempo", "Tendencia"),
+                      values = c("black", "darkred")) +
+  labs(title = "Concentración de O3 - Zona Centro", y= "Valor IMECA   [0-200]",
+       x = "Tiempo",subtitle = "Serie de tiempo de Enero 2005 - Diciembre 2020")+
+  theme_classic()
+
+#PM10
+CE.PM10.comp <-decompose(CE.PM10.ts,type = "mult")
+#plot(CE.CO.comp)
+
+trendPM10 <- as.numeric(CE.PM10.comp$trend)
+
+ggplot(PM10,aes(x=mes)) +
+  geom_line(aes(y=CE,colour = "Serie de tiempo"))+
+  geom_line(aes(y=trendPM10,colour = "Tendencia"), lwd = 0.9)+
+  scale_colour_manual("", breaks = c("Serie de tiempo", "Tendencia"),
+                      values = c("black", "darkred")) +
+  labs(title = "Concentración de PM10 - Zona Centro", y= "Valor IMECA   [0-200]",
+       x = "Tiempo",subtitle = "Serie de tiempo de Enero 2005 - Diciembre 2020")+
+  theme_classic()
+
