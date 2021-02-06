@@ -84,6 +84,9 @@ shinyServer(function(input, output) {
                )
         
     output$output_text <- renderText(paste("Graficas"))
+    output$IMECA <- renderText(paste("interpretacion datos IMECA", br(), 
+    "Los datos que se estudiaron para este proyecto
+                                    fueron obtenidos de"))
 
     output$plot <- renderPlot({
             y <- datasetImput()[ ,input$y]
